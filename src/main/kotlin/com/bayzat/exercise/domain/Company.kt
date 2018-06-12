@@ -1,5 +1,6 @@
 package com.bayzat.exercise.domain
 
+import com.fasterxml.jackson.annotation.*
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
@@ -8,20 +9,25 @@ import javax.validation.constraints.NotBlank
  * @author Kamal
  *
  */
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "companyId")
 @Entity
 @Table(name = "company")
-//@NamedEntityGraph(name = "fetch.company.employees", attributeNodes = { @NamedAttributeNode("employees") })
-
 data class Company(
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
         @Column(name = "COMPANY_ID", updatable = false, nullable = false)
-        val companyId: Long = 0,
+        @JsonSetter(nulls= Nulls.SKIP)
+        val companyId: Long ?=  null,
 
         @Column(name = "COMPANY_NAME")
         @get: NotBlank
-        val companyName: String = ""
+        val companyName: String = "",
 
-        )
+        @Embedded
+        val address: Address,
+
+        @OneToMany(cascade = [CascadeType.ALL], mappedBy = "company")
+        @JsonBackReference
+        var employees: List<Employee> = emptyList()
+
+)
