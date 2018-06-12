@@ -14,27 +14,27 @@ NOTE: This document is a **work in progress**.
 List All companies 
 + Response 200 (application/json)
 
-        {
-            "companyId":1,
-            "name":"Bayzat",
-            "address":{
-                "city":"Dubai",
-                "state":"UAE"
-            }
-        }
-        
-        
-+ Response 404 (application/json)
-
-    + Body
-    
+        [
             {
-                    "code":1000,
-                    "message":"Resouroce not found.",
-                    "timestamp":"2018-06-09T10:00:48.814Z"
+                "companyId":1,
+                "companyName":"Bayzat",
+                "address":{
+                    "city":"Dubai",
+                    "country":"UAE"
+                }
+            },
+            {
+                "companyId":5,
+                "companyName":"Bayzat","
+                 address":{
+                    "city":"Dubai",
+                    "country":"UAE"
+                }
             }
-        
+        ]
 
+        
+        
 
 ### Create Company [POST]
 
@@ -47,30 +47,22 @@ NOTE: company's name should be unique
 
 + Request (application/json)
 
-           {
-
-                "name": "BayzatHa",
-                "address": {
-                "city": "Dubai",
-                "state": "UAE"
-                }
+        {
+           "companyName": "Bayzat",
+           "address": {
+               "city": "Dubai",
+               "country": "UAE"
             }
+        }
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
     + Headers
 
             Location: /companies/1
             
-+ Response 409 (application/json)  
 
-    + Body
-            
-            {
-                "code":1001,
-                "message":"Resource already exist",
-                "timestamp":"2018-06-09T19:11:06.690Z"
-            }
+
 
 ### Update [PUT]
 Update company
@@ -78,30 +70,16 @@ Update company
 
 + Response 404 (application/json)
 
-    + Body
-    
-            {
-                "code":1000,
-                "message":"Resouroce not found.",
-                "timestamp":"2018-06-09T10:00:48.814Z"
-            }
 
 ### Delete [DELETE]
 Delete a company.
 **Warning:** This action **permanently** removes company, employees and it's
 dependant from the database.
 
-+ Response 204
++ Response 200
 
 + Response 404 (application/json)
 
-    + Body
-    
-            {
-                "code":1000,
-                "message":"Resouroce not found.",
-                "timestamp":"2018-06-09T10:00:48.814Z"
-            }
             
 
 ## Retreive Company By ID Company [/companies/{companyId}]
@@ -109,10 +87,10 @@ This resource represents one particular company identified by its *company_id*.
 This resource will return company object which has the following attributes:
 
 + companyId (number): 1 
-+ name (string) : Bayzat - name of the company
++ companyName (string) : Bayzat - name of the company
 + address (object)- an object which contains the adress of the company 
    + city (string):  Dubai
-   + state (string): UAE
+   + country (string): UAE
 
 + Parameters
     + companyId: 1 (required, number) - ID of the company in form of an integer
@@ -124,85 +102,13 @@ This resource will return company object which has the following attributes:
        
             {
                 "companyId":1,
-                "name":"Bayzat",
+                "companyName":"Bayzat",
                 "address":{
                     "city":"Dubai",
                     "state":"UAE"
                 },
             }
 + Response 404 (application/json)
-
-    + Body
-    
-            {
-                "code":1000,
-                "message":"Resouroce not found.",
-                "timestamp":"2018-06-09T10:00:48.814Z"
-            }
-
-## Retrieve Company And It's Employees [/companies/{companyId}/employees]
-This resource retrieves company and it's all employees identified by *company_id*.
-This resource will return an object Company which has the following attributes.
-
-+ companyId (number): the companyId
-+ name (string) - name of the company
-+ address (object) - an object which contains the adress of the company 
-   + city (string):  Dubai
-   + state (string): UAE
-+ employee (array[string]) - array which contains all employees 
-   + employeeId (number)
-   + name  (string)
-   + phoneNumber (string)
-   + gender (enum[string]) - the gender can be MALE, FEMALE or OTHER 
-   + dateOfBirth : (string)
-   + salary (double)
-   + company (number) - comapny's ID
-
-+ Parameters
-    + companyId: 1 (required, number) - ID of the company in form of an integer
-
-### Retreive Company's And It's Employees [GET]
-+ Response 200 (application/json)
-   
-   + Body
-       
-              {
-                    "companyId": 1,
-                    "name": "Bayzat",
-                    "address": {
-                        "city": "Dubai",
-                        "state": "UAE"
-                    },
-                    "employees": [{
-                        "employeeId": 2,
-                        "name": "John",
-                        "phoneNumber": "+97111",
-                        "gender": "MALE",
-                        "dateOfBirth": "1990-01-14",
-                        "salary": 1500.0,
-                        "company": 1
-                    },
-                    {
-                        "employeeId": 7,
-                        "name": "Jane",
-                        "phoneNumber": "0555",
-                        "gender": "FEMALE",
-                        "dateOfBirth": "1990-01-14",
-                        "salary": 1500.0,
-                        "company": 1
-                    }]
-                }
-
-+ Response 404 (application/json)
-
-    + Body
-    
-                {
-                    "code":1000,
-                    "message":"Resouroce not found.",
-                    "timestamp":"2018-06-09T10:00:48.814Z"
-                }
-
 
 # Group Employees
 
@@ -235,7 +141,7 @@ This resource represents one particular employee identified by its *employee_id*
 This resource will return employee object which has the following attributes:
 
 + employeeId (number)
-+ name  (string)
++ employeeName  (string)
 + phoneNumber (string)
 + gender (enum[string]) - the gender can be MALE, FEMALE or OTHER 
 + dateOfBirth : (string)
@@ -252,7 +158,7 @@ This resource will return employee object which has the following attributes:
     
             {
                 "employeeId": 2,
-                "name": "John",
+                "employeeName": "John",
                 "phoneNumber": "+97111",
                 "gender": "MALE",
                 "dateOfBirth": "1990-01-14",
@@ -261,26 +167,14 @@ This resource will return employee object which has the following attributes:
             
 + Response 404 (application/json)
 
-    + Body
     
-            {
-                "code":1000,
-                "message":"Resouroce not found.",
-                "timestamp":"2018-06-09T10:00:48.814Z"
-            }
 
 ### Update [PUT]
 Update company
 + Response 204
 + Response 404 (application/json)
 
-    + Body
     
-            {
-                "code":1000,
-                "message":"Resouroce not found.",
-                "timestamp":"2018-06-09T10:00:48.814Z"
-            }
 
 ### Delete [DELETE]
 Delete a company.
@@ -290,97 +184,15 @@ dependant from the database.
 + Response 204
 + Response 404 (application/json)
 
-    + Body
     
-            {
-                "code":1000,
-                "message":"Resouroce not found.",
-                "timestamp":"2018-06-09T10:00:48.814Z"
-            }
 
-## Retrieve Employee And Company By ID [/employees/{employeeId}/companies]
-This resource will fetch Company's (object) or information of one particular employee identified by its *employee_id*.
-This resource will provide informaion about the company of the employee.
 
-+ Parameters
-    + employeeId: 1 (required, number) - ID of the employee in form of an integer
-
-### Retreive Employee And Company By ID [GET]
-+ Response 200 (application/json)
-
-    + Body
-    
-            {
-                "employeeId":2,
-                "name":"John",
-                "phoneNumber":"+97111",
-                "gender":"MALE",
-                "dateOfBirth":"1990-01-14",
-                "salary":1500.0,
-                "company":{
-                    "companyId":1,
-                    "name":"Bayzat",
-                    "address":{
-                        "city":"Dubai",
-                        "state":"UAE"
-                        }
-                }
-            }
-            
-+ Response 404 (application/json)
-
-    + Body
-    
-            {
-                "code":1000,
-                "message":"Resouroce not found.",
-                "timestamp":"2018-06-09T10:00:48.814Z"
-            }
-
-## Retrieve Employee And It's Dependants By ID [/employees/{employeeId}/dependants]
-This resource will fetch Dependants (object) of one particular employee identified by its *employee_id*.
-This resource will give us the employee's dependants
-
-+ Parameters
-    + employeeId: 1 (required, number) - ID of the employee in form of an integer
-
-### Retreive Employee And It's Dependant By EmpleeId [GET]
-+ Response 200 (application/json)
-
-    + Body
-    
-            {
-                "employeeId":2,
-                "name":"John",
-                "phoneNumber":"+97111",
-                "gender":"MALE",
-                "dateOfBirth":"1990-01-14",
-                "salary":1500.0,
-                "dependents":[{
-                    "dependantId":3,
-                    "name":"Dependent1",
-                    "phoneNumber":"05555",
-                    "gender":"FEMALE",
-                    "dateOfBirth":"1990-01-14",
-                    "relation":"MOTHER","employee":2
-                }]
-            }
-            
-+ Response 404 (application/json)
-
-    + Body
-    
-            {
-                "code":1000,
-                "message":"Resouroce not found.",
-                "timestamp":"2018-06-09T10:00:48.814Z"
-            }
 
 ### Create Employee [POST]
 
 You may create your employee using this resource. It takes a JSON object
 containing employee object which has the following attributes: 
-NOTE: employee name should be unique 
+
 + employeeId (number)
 + name  (string)
 + phoneNumber (string)
@@ -391,7 +203,7 @@ NOTE: employee name should be unique
 + Request (application/json)
 
            {
-              "name": "Name should be new",
+              "name": "Kamal",
               "phoneNumber": "+97111",
               "gender": "MALE",
               "dateOfBirth": "1990-01-14",
@@ -414,13 +226,7 @@ NOTE: employee name should be unique
             
 + Response 409 (application/json)  
 
-    + Body
-            
-            {
-                "code":1001,
-                "message":"Resource already exist",
-                "timestamp":"2018-06-09T19:11:06.690Z"
-            }
+
             
 
 # Group Dependants
@@ -536,44 +342,7 @@ List All dependants
                     "timestamp":"2018-06-09T10:00:48.814Z"
             }
 
-## Retrieve Dependant And Employee [/dependants/{dependantId}/employee]
-This resource will fetch Employee (object) of one particular dependant identified by its *dependant_id*.
-This resource will give us the dependant and it's employee's
 
-+ Parameters
-    + dependantId: 1 (required, number) - ID of the dependant in form of an integer
-
-### Retreive Dependant And It's Employee By EmpleeId [GET]
-+ Response 200 (application/json)
-
-    + Body
-    
-            {
-                  "dependantId": 3,
-                  "name": "Dependent1",
-                  "phoneNumber": "05555",
-                  "gender": "FEMALE",
-                  "dateOfBirth": "1990-01-14",
-                  "relation": "MOTHER",
-                  "employee": {
-                        "employeeId": 2,
-                        "name": "John",
-                        "phoneNumber": "+97111",
-                        "gender": "MALE",
-                        "dateOfBirth": "1990-01-14",
-                        "salary": 1500
-                   }
-            }
-            
-+ Response 404 (application/json)
-
-    + Body
-    
-            {
-                "code":1000,
-                "message":"Resouroce not found.",
-                "timestamp":"2018-06-09T10:00:48.814Z"
-            }
 
 
 ## Retrieve Dependant By ID [/dependants/{dependantId}]
