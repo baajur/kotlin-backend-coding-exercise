@@ -1,4 +1,4 @@
-package com.bayzat.exercise.domain
+package com.bayzat.exercise.company
 
 import com.fasterxml.jackson.annotation.JsonView
 import java.io.Serializable

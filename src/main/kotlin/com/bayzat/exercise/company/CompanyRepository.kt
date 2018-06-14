@@ -1,9 +1,11 @@
-package com.bayzat.exercise.repository
+package com.bayzat.exercise.company
 
-import com.bayzat.exercise.domain.Company
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
+import javax.transaction.Transactional
+
 
 @Repository
 interface CompanyRepository : JpaRepository<Company, Long>{
+    fun deleteByCompanyId(companyId: Long): Long?
 }

@@ -1,12 +1,10 @@
 package com.bayzat.exercise
 
+import com.bayzat.exercise.company.*
 import com.bayzat.exercise.constant.Gender.*
 import com.bayzat.exercise.constant.Relation.*
-import com.bayzat.exercise.domain.Address
-import com.bayzat.exercise.domain.Company
-import com.bayzat.exercise.domain.Dependant
-import com.bayzat.exercise.domain.Employee
-import com.bayzat.exercise.repository.CompanyRepository
+import com.bayzat.exercise.employee.CreateEmployeeDto
+import com.bayzat.exercise.employee.Employee
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -25,7 +23,7 @@ open class BayzatExerciseApplication {
     open fun init(companyRepository: CompanyRepository): CommandLineRunner {
         return CommandLineRunner {
             LOGGER.log(Level.INFO, "******INSERTING DUMMY DATA******")
-
+/*
             //create a company, that has employees, a company can have zero or one employees
             val companyWithEmployees = (Company(
                     companyName = "Bayzat",
@@ -67,9 +65,31 @@ open class BayzatExerciseApplication {
 
             //set the company's employee and save it
             companyWithEmployees.employees = listOf<Employee>(employee1, employee2)
-            employee1.dependant = listOf(dependant1)
+            //employee1.dependant = listOf(dependant1)
+            //companyRepository.save(companyWithEmployees)
+            //companyRepository.save(companyWithoutEmployees)*/
+
+
+
+
+            val companyWithoutEmployees = Company(companyName = "Bayzat",
+                    address = Address(city = "Dubai", country = "UAE"))
+            val companyWithEmployees = Company(companyName = "Bayzat",
+                    address = Address(city = "Dubai", country = "UAE"))
+
+            val employee1 = Employee(
+                    employeeName = "John",
+                    dateOfBirth = LocalDate.of(1990, 6, 6),
+                    gender = MALE,
+                    phoneNumber = "+971555960195",
+                    salary = 1500.00,
+                    company = companyWithEmployees
+            )
+
+            companyWithEmployees.employees = listOf<Employee>(employee1)
             companyRepository.save(companyWithEmployees)
             companyRepository.save(companyWithoutEmployees)
+
         }
     }
 }
