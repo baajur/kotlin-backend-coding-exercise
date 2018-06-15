@@ -32,18 +32,18 @@ data class Employee(
         val salary: Double = 0.toDouble(),
 
         @ManyToOne
-        @JoinColumn(name = "company", referencedColumnName = "COMPANY_ID")
+        @JoinColumn(name = "company", referencedColumnName = "COMPANY_ID", updatable = false)
         @JsonManagedReference
         val company: Company,
 
         @OneToMany(cascade = [CascadeType.ALL], mappedBy = "employee")
         @JsonBackReference
-        var dependant: List<Dependant>? = null
+        val dependants: List<Dependant>? = null
 
 ) {
 
     override fun toString(): String {
-        return "Employee(employeeId=$employeeId, employeeName='$employeeName', dateOfBirth=$dateOfBirth, salary=$salary , parent=${company?.companyId})"
+        return "Employee(employeeId=$employeeId, employeeName='$employeeName', dateOfBirth=$dateOfBirth, salary=$salary , company=${company?.companyId}, dependants=${dependants?.map { it.dependantId }})"
 
     }
 
@@ -54,7 +54,8 @@ data class Employee(
             gender = this.gender,
             dateOfBirth = this.dateOfBirth,
             salary = this.salary,
-            company = this.company
+            company = this.company,
+            dependants = this.dependants
     )
 
 
@@ -68,7 +69,8 @@ data class Employee(
                 gender = dto.gender,
                 dateOfBirth = dto.dateOfBirth,
                 salary = dto.salary,
-                company = dto.company
+                company = dto.company,
+                dependants = dto.dependants
         )
 
         fun fromDto(dto: CreateEmployeeDto) = Employee(
@@ -77,7 +79,9 @@ data class Employee(
                 gender = dto.gender,
                 dateOfBirth = dto.dateOfBirth,
                 salary = dto.salary,
-                company = dto.company
+                company = dto.company,
+                dependants = dto.dependants
+
         )
 
         fun fromDto(dto: UpdateEmployeeDto, defaultEmployee: Employee) = Employee(
@@ -87,7 +91,8 @@ data class Employee(
                 gender = dto.gender ?: defaultEmployee.gender,
                 dateOfBirth = dto.dateOfBirth ?: defaultEmployee.dateOfBirth,
                 salary = dto.salary ?: defaultEmployee.salary,
-                company = dto.company ?: defaultEmployee.company
+                company = dto.company ?: defaultEmployee.company,
+                dependants = dto.dependants ?: defaultEmployee.dependants
         )
 
     }

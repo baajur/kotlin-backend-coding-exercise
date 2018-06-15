@@ -34,7 +34,7 @@ data class Dependant (
         val relation: Relation,
 
         @ManyToOne
-        @JoinColumn(name = "employee", referencedColumnName = "EMPLOYEE_ID")
+        @JoinColumn(name = "employee", referencedColumnName = "EMPLOYEE_ID", updatable = false)
         @JsonManagedReference
         val employee: Employee
 

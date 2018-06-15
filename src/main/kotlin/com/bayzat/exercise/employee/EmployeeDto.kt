@@ -2,6 +2,7 @@ package com.bayzat.exercise.employee
 
 import com.bayzat.exercise.company.Company
 import com.bayzat.exercise.constant.Gender
+import com.bayzat.exercise.dependant.Dependant
 import com.bayzat.exercise.employee.Employee
 import java.time.LocalDate
 import javax.validation.constraints.NotEmpty
@@ -13,7 +14,8 @@ data class EmployeeDto(
         val gender: Gender,
         val dateOfBirth: LocalDate,
         val salary: Double = 0.toDouble(),
-        val company: Company
+        val company: Company,
+        val dependants: List<Dependant>? ? = null
 )
 
 
@@ -23,7 +25,9 @@ data class CreateEmployeeDto(
         val gender: Gender,
         val dateOfBirth: LocalDate,
         val salary: Double = 0.toDouble(),
-        var company: Company
+        val company: Company,
+        val dependants: List<Dependant>? ? = null
+
 )
 
 data class UpdateEmployeeDto(
@@ -32,7 +36,9 @@ data class UpdateEmployeeDto(
         val gender: Gender,
         val dateOfBirth: LocalDate,
         val salary: Double = 0.toDouble(),
-        val company: Company
+        val company: Company,
+        val dependants: List<Dependant>? ? = null
+
 )
 
 

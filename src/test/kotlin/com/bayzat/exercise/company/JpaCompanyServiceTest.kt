@@ -16,8 +16,6 @@ class JpaCompanyServiceTest {
 
     @Autowired
     lateinit var service: CompanyService
-    @Autowired
-    lateinit var repository: CompanyRepository
 
     /**
      * should return created entity
@@ -42,30 +40,60 @@ class JpaCompanyServiceTest {
         assertThat(service.retrieveCompanies()).isEmpty()
     }
 
+    /**
+     * should update existing value
+     */
+    @Test
+    fun updateCompany() {
+        val createdCompany = service.addCompany(CreateCompanyDto(companyName = "Bayzat",
+                        address = Address(city = "Dubai", country = "UAE")))
 
-    fun `'updateCity' should update existing values`() {
-        val existingCompany = repository.save(Company(companyName = "Bayzat",
-                        address = Address(city = "Dubai", country = "UAE"))).toDto()
-
-        val result = service.updateCompany(existingCompany.companyId,
+        val result = service.updateCompany(createdCompany.companyId,
                 UpdateCompanyDto(companyName = "company1",
                         address = Address(city = "city1", country = "country1")))
         assertThat(result).isNotNull
-        assertThat(result?.companyId).isEqualTo(existingCompany.companyId)
+        assertThat(result?.companyId).isEqualTo(createdCompany.companyId)
         assertThat(result?.companyName).isEqualTo("company1")
         assertThat(result?.address?.city).isEqualTo("city1")
         assertThat(result?.address?.country).isEqualTo("country1")
     }
 
-
-
-
+    /**
+     * should return null if company for companyId doesn't exist
+     */
     @Test
-    fun `'deleteCompany' should delete existing company`() {
-        val newCompany = repository.save(Company(companyName = "Bayzat",
-                address = Address(city = "Dubai", country = "UAE"))).toDto()
-        val existingCompany= repository.findAll().stream().findFirst().get().toDto()
+    fun retrieveNullCompany() {
+        assertThat(service.retrieveCompany(-99)).isNull()
+    }
+
+    /**
+     * should map existing company from repository
+     */
+    @Test
+    fun retrieveExistingCompany() {
+        val createdCompany = service.addCompany(CreateCompanyDto(companyName = "Bayzat",
+                address = Address(city = "Dubai", country = "UAE")))
+        val result= service.retrieveCompany(createdCompany.companyId)
+
+
+        assertThat(result).isNotNull
+        assertThat(result!!.companyId).isPositive()
+        assertThat(result?.companyName).isEqualTo("Bayzat")
+        assertThat(result.address?.city).isEqualTo("Dubai")
+    }
+
+    /**
+     * should delete existing company`
+     */
+    @Test
+    fun deleteCompany() {
+        val createdCompany = service.addCompany(CreateCompanyDto(companyName = "Bayzat",
+                address = Address(city = "Dubai", country = "UAE")))
+        val existingCompany= service.retrieveCompany(createdCompany.companyId)
         assertThat(existingCompany).isNotNull
-        service.deleteCompany(existingCompany.companyId)
+        val result= service.deleteCompany(existingCompany!!.companyId)
+        assertThat(result).isEqualTo(1)
+        assertThat(service.retrieveCompany(existingCompany.companyId)).isNull()
+
     }
 }

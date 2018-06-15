@@ -3,6 +3,7 @@ package com.bayzat.exercise
 import com.bayzat.exercise.company.*
 import com.bayzat.exercise.constant.Gender.*
 import com.bayzat.exercise.constant.Relation.*
+import com.bayzat.exercise.dependant.Dependant
 import com.bayzat.exercise.employee.CreateEmployeeDto
 import com.bayzat.exercise.employee.Employee
 import org.springframework.boot.CommandLineRunner
@@ -86,8 +87,18 @@ open class BayzatExerciseApplication {
                     company = companyWithEmployees
             )
 
+            val dependant1 = Dependant(
+                    dependantName = "John",
+                    dateOfBirth = LocalDate.of(1990, 6, 6),
+                    gender = MALE,
+                    phoneNumber = "+971555960195",
+                    relation = FATHER,
+                    employee = employee1
+            )
+
             companyWithEmployees.employees = listOf<Employee>(employee1)
             companyRepository.save(companyWithEmployees)
+
             companyRepository.save(companyWithoutEmployees)
 
         }

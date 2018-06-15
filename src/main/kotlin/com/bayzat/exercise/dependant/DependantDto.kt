@@ -1,11 +1,9 @@
 package com.bayzat.exercise.dependant
 
-import com.bayzat.exercise.company.Company
 import com.bayzat.exercise.constant.Gender
 import com.bayzat.exercise.constant.Relation
 import com.bayzat.exercise.employee.Employee
 import java.time.LocalDate
-import javax.validation.constraints.NotEmpty
 
 data class DependantDto(
         val dependantId: Long = 0,
