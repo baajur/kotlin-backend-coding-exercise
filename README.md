@@ -13,7 +13,7 @@
 <ol type="1">
   <li>
        I wasn't able test the API documentation on localhost using Dredd
-     I was able to install Dredd successfully, however I was not able to see the reqeust and response sent to the server, please see this    [link](dredd.PNG)
+     I was able to install Dredd successfully, however I was not able to see the reqeust and response sent to the server, please see this    [link](https://github.com/kweheliye/backend-coding-exercise/blob/master/dredd.PNG)
   </li>
   </li>
 </ol>
