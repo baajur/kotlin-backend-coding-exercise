@@ -40,10 +40,10 @@ class CompanyControllerTest {
     private lateinit var companyRepository: CompanyRepository
 
 
+    /**Retrieving an unknown company should result in status 404
+     *
+     */
     @Test
-            /**Retrieving an unknown company should result in status 404
-             *
-             */
     fun `Retrieving an unknown company should result in status 400`() {
         mockMvc.perform(get("/api/v1/companies/unkown")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -60,7 +60,7 @@ class CompanyControllerTest {
 
     @Test
     //fun `Creating a company with a valid request body should result in status 201 and a location header`() {
-    fun createCompany (){
+    fun createCompany() {
         val saveNewCompany =
                 CreateCompanyDto(companyName = "Bayzat",
                         address = Address(city = "Dubai", country = "UAE"))
@@ -93,7 +93,7 @@ class CompanyControllerTest {
                 address = Address(city = "Dubai", country = "UAE"))
 
         whenever(companyService.retrieveCompany(1)).thenReturn(
-               result)
+                result)
 
         this.mockMvc.perform(get("/api/v1/companies/{companyId}", 1).accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))

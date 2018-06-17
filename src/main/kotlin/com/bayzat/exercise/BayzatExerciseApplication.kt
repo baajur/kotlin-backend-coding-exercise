@@ -51,7 +51,6 @@ class BayzatExerciseApplication {
 
             companyWithEmployees.employees = listOf<Employee>(employee1)
             companyRepository.save(companyWithEmployees)
-
             companyRepository.save(companyWithoutEmployees)
 
         }
