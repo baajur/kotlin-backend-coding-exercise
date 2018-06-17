@@ -2,31 +2,29 @@ package com.bayzat.exercise.company
 
 import com.bayzat.exercise.constant.COMPANIES_PATH
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.times
+import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.whenever
+import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
+import org.mockito.MockitoAnnotations
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.context.annotation.Bean
 import org.springframework.http.MediaType
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
-import org.hamcrest.CoreMatchers.equalTo
-import org.springframework.http.ResponseEntity
-import org.springframework.web.util.UriComponentsBuilder
-import org.mockito.MockitoAnnotations
-import org.springframework.boot.test.context.TestConfiguration
-import org.springframework.context.annotation.Bean
-import org.mockito.BDDMockito.`when`
-import org.mockito.Mock
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import java.time.LocalDateTime
+import java.util.*
 
 
 @RunWith(SpringRunner::class)
@@ -38,12 +36,9 @@ class CompanyControllerTest {
     lateinit var mockMvc: MockMvc
     @MockBean
     lateinit var companyService: CompanyService
+    @MockBean
+    private lateinit var companyRepository: CompanyRepository
 
-
-    @Before
-    fun setup() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
             /**Retrieving an unknown company should result in status 404
@@ -61,6 +56,49 @@ class CompanyControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{}"))
                 .andExpect(status().isNotFound)
+    }
+
+    @Test
+    //fun `Creating a company with a valid request body should result in status 201 and a location header`() {
+    fun createCompany (){
+        val saveNewCompany =
+                CreateCompanyDto(companyName = "Bayzat",
+                        address = Address(city = "Dubai", country = "UAE"))
+
+
+
+        whenever(companyService.addCompany(any())).thenReturn(
+                CompanyDto(companyId = 1, companyName = "Bayzat",
+                        address = Address(city = "Dubai", country = "UAE")))
+
+        System.out.print(jacksonObjectMapper().writeValueAsString(saveNewCompany))
+
+        mockMvc.perform(post("/api/v1/companies")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(jacksonObjectMapper().writeValueAsString(saveNewCompany)))
+                .andExpect(status().isNotFound)
+        // .andExpect(header().string("location", "http://localhost/companies/1"))
+        verify(companyService, times(1)).addCompany(any())
+        verify(companyService).addCompany(any())
+
+    }
+
+
+    @Test
+            /**Retrieving an unknown company should result in status 404
+             *
+             */
+    fun `Retrieving an a known company should result in status 200`() {
+        val result: CompanyDto? = CompanyDto(companyId = 1, companyName = "Bayzat",
+                address = Address(city = "Dubai", country = "UAE"))
+
+        whenever(companyService.retrieveCompany(1)).thenReturn(
+               result)
+
+        this.mockMvc.perform(get("/api/v1/companies/{companyId}", 1).accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk)
+
     }
 
 

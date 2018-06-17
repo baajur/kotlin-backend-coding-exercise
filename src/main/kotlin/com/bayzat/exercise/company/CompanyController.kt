@@ -3,6 +3,7 @@ package com.bayzat.exercise.company
 import com.bayzat.exercise.constant.COMPANIES_PATH
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
@@ -13,7 +14,7 @@ import java.util.logging.Logger
 @RequestMapping(value = COMPANIES_PATH)
 class CompanyController(val companyService: CompanyService) {
 
-    private val log = Logger.getLogger(CompanyController::class.java.getName())
+    public val log = Logger.getLogger(CompanyController::class.java.getName())
 
     @GetMapping
     fun retrieveCompanies(): ResponseEntity<List<CompanyDto>> {
