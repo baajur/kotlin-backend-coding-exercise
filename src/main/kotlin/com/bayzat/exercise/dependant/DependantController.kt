@@ -59,7 +59,7 @@ class DependantController(val dependantService: DependantService) {
         }
     }
 
-    @DeleteMapping("/{dependantId}")
+    @DeleteMapping("{dependantId}")
     fun deleteDependantById(@PathVariable(value = "dependantId") dependantId: Long): ResponseEntity<Void> {
         val result= dependantService.deleteDependant(dependantId)
         if ( result != null) {

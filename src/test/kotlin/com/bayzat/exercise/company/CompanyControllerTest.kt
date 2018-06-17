@@ -1,22 +1,16 @@
 package com.bayzat.exercise.company
 
-import com.bayzat.exercise.constant.COMPANIES_PATH
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.whenever
-import org.hamcrest.CoreMatchers.equalTo
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.InjectMocks
 import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
+import org.mockito.Mockito.`when`
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.TestConfiguration
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.Bean
 import org.springframework.http.MediaType
 import org.springframework.test.context.ContextConfiguration
@@ -24,10 +18,6 @@ import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
-import java.time.LocalDateTime
-import java.util.*
-import org.springframework.test.context.junit.jupiter.SpringExtension
-
 
 @RunWith(SpringRunner::class)
 @WebMvcTest(CompanyController::class)
@@ -36,10 +26,19 @@ class CompanyControllerTest {
 
     @Autowired
     lateinit var mockMvc: MockMvc
-    @MockBean
+
+    @Autowired
     lateinit var companyService: CompanyService
 
 
+
+
+    @TestConfiguration
+    class Config {
+
+        @Bean
+        fun companyService(): CompanyService = Mockito.mock(CompanyService::class.java)
+    }
 
     /**Retrieving an unknown company should result in status 404
      *
@@ -69,7 +68,7 @@ class CompanyControllerTest {
 
 
 
-        whenever(companyService.addCompany(any())).thenReturn(
+        `when`(companyService.addCompany(any())).thenReturn(
                 CompanyDto(companyId = 1, companyName = "Bayzat",
                         address = Address(city = "Dubai", country = "UAE")))
 
@@ -92,7 +91,7 @@ class CompanyControllerTest {
         val result: CompanyDto? = CompanyDto(companyId = 1, companyName = "Bayzat",
                 address = Address(city = "Dubai", country = "UAE"))
 
-        whenever(companyService.retrieveCompany(1)).thenReturn(
+        `when`(companyService.retrieveCompany(1)).thenReturn(
                 result)
 
         this.mockMvc.perform(get("/api/v1/companies/{companyId}", 1)

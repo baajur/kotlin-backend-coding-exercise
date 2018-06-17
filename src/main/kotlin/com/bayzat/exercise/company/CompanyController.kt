@@ -14,7 +14,7 @@ import java.util.logging.Logger
 @RequestMapping(value = COMPANIES_PATH)
 class CompanyController(val companyService: CompanyService) {
 
-    public val log = Logger.getLogger(CompanyController::class.java.getName())
+    val log = Logger.getLogger(CompanyController::class.java.getName())
 
     @GetMapping
     fun retrieveCompanies(): ResponseEntity<List<CompanyDto>> {
