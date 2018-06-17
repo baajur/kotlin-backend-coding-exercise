@@ -10,6 +10,7 @@ import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.InjectMocks
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,6 +26,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import java.time.LocalDateTime
 import java.util.*
+import org.springframework.test.context.junit.jupiter.SpringExtension
 
 
 @RunWith(SpringRunner::class)
@@ -36,8 +38,7 @@ class CompanyControllerTest {
     lateinit var mockMvc: MockMvc
     @MockBean
     lateinit var companyService: CompanyService
-    @MockBean
-    private lateinit var companyRepository: CompanyRepository
+
 
 
     /**Retrieving an unknown company should result in status 404
@@ -58,8 +59,9 @@ class CompanyControllerTest {
                 .andExpect(status().isNotFound)
     }
 
-    @Test
+
     //fun `Creating a company with a valid request body should result in status 201 and a location header`() {
+    @Test
     fun createCompany() {
         val saveNewCompany =
                 CreateCompanyDto(companyName = "Bayzat",
@@ -71,10 +73,8 @@ class CompanyControllerTest {
                 CompanyDto(companyId = 1, companyName = "Bayzat",
                         address = Address(city = "Dubai", country = "UAE")))
 
-        System.out.print(jacksonObjectMapper().writeValueAsString(saveNewCompany))
-
         mockMvc.perform(post("/api/v1/companies")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(jacksonObjectMapper().writeValueAsString(saveNewCompany)))
                 .andExpect(status().isNotFound)
         // .andExpect(header().string("location", "http://localhost/companies/1"))
@@ -84,10 +84,10 @@ class CompanyControllerTest {
     }
 
 
+    /**Retrieving an unknown company should result in status 404
+     *
+     */
     @Test
-            /**Retrieving an unknown company should result in status 404
-             *
-             */
     fun `Retrieving an a known company should result in status 200`() {
         val result: CompanyDto? = CompanyDto(companyId = 1, companyName = "Bayzat",
                 address = Address(city = "Dubai", country = "UAE"))
@@ -95,10 +95,10 @@ class CompanyControllerTest {
         whenever(companyService.retrieveCompany(1)).thenReturn(
                 result)
 
-        this.mockMvc.perform(get("/api/v1/companies/{companyId}", 1).accept(MediaType.APPLICATION_JSON)
+        this.mockMvc.perform(get("/api/v1/companies/{companyId}", 1)
+                .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk)
-
     }
 
 

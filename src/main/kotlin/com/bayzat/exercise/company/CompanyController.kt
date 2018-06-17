@@ -61,7 +61,7 @@ class CompanyController(val companyService: CompanyService) {
         }
     }
 
-    @DeleteMapping("/{companyId}")
+    @DeleteMapping("{companyId}")
     fun deleteCompanyById(@PathVariable(value = "companyId") companyId: Long): ResponseEntity<Void> {
         val result = companyService.deleteCompany(companyId)
         if (result != null) {
