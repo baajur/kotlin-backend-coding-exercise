@@ -16,6 +16,7 @@ data class Employee(
         @Column(name = "EMPLOYEE_ID", updatable = false, nullable = false)
         val employeeId: Long? = null,
 
+        @Column(name = "EMPLOYEE_NAME")
         val employeeName: String = "",
 
         @Column(name = "PHONE_NUMBER")
@@ -32,7 +33,7 @@ data class Employee(
         val salary: Double = 0.toDouble(),
 
         @ManyToOne
-        @JoinColumn(name = "company", referencedColumnName = "COMPANY_ID", updatable = false)
+        @JoinColumn(name = "COMPANY_ID", referencedColumnName = "COMPANY_ID", updatable = false)
         @JsonManagedReference
         val company: Company,
 

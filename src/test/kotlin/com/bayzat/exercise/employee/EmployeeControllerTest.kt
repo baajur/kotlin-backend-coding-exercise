@@ -2,6 +2,7 @@ package com.bayzat.exercise.employee
 
 import com.bayzat.exercise.company.Address
 import com.bayzat.exercise.company.Company
+import com.bayzat.exercise.company.CompanyService
 import com.bayzat.exercise.constant.Gender
 import com.nhaarman.mockito_kotlin.*
 import org.hamcrest.CoreMatchers.equalTo
@@ -12,14 +13,19 @@ import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.TestConfiguration
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.Bean
 import org.springframework.http.MediaType
+import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import java.time.LocalDate
 import java.time.LocalDateTime
+import org.mockito.MockitoAnnotations
+
+
 
 @RunWith(SpringRunner::class)
 @WebMvcTest(EmployeeController::class)
@@ -27,14 +33,12 @@ class EmployeeControllerTest {
 
     @Autowired
     lateinit var mockMvc: MockMvc
-    @Autowired
+    @MockBean
     lateinit var employeeService: EmployeeService
 
-    @TestConfiguration
-    class Config {
-
-        @Bean
-        fun employeeService(): EmployeeService = Mockito.mock(EmployeeService::class.java)
+    @Before
+    fun setUp() {
+        MockitoAnnotations.initMocks(this)
     }
 
     @Before
@@ -76,9 +80,5 @@ class EmployeeControllerTest {
                 .andExpect(jsonPath("$.employeeName", equalTo("John")))
                 .andExpect(jsonPath("$.gender", equalTo("MALE")))
     }
-
-
-
-
 
 }

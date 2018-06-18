@@ -20,41 +20,13 @@ import java.util.logging.Logger
 class BayzatExerciseApplication {
 
     private val LOGGER = Logger.getLogger(BayzatExerciseApplication::class.qualifiedName)
-/*
+
     @Bean
-    open fun init(companyRepository: CompanyRepository): CommandLineRunner {
+    fun init(): CommandLineRunner {
         return CommandLineRunner {
-            LOGGER.log(Level.INFO, "******INSERTING DUMMY DATA******")
-
-            val companyWithoutEmployees = Company(companyName = "Bayzat",
-                    address = Address(city = "Dubai", country = "UAE"))
-            val companyWithEmployees = Company(companyName = "Bayzat",
-                    address = Address(city = "Dubai", country = "UAE"))
-
-            val employee1 = Employee(
-                    employeeName = "John",
-                    dateOfBirth = LocalDate.of(1990, 6, 6),
-                    gender = MALE,
-                    phoneNumber = "+971555960195",
-                    salary = 1500.00,
-                    company = companyWithEmployees
-            )
-
-            val dependant1 = Dependant(
-                    dependantName = "John",
-                    dateOfBirth = LocalDate.of(1990, 6, 6),
-                    gender = MALE,
-                    phoneNumber = "+971555960195",
-                    relation = FATHER,
-                    employee = employee1
-            )
-
-            companyWithEmployees.employees = listOf<Employee>(employee1)
-            companyRepository.save(companyWithEmployees)
-            companyRepository.save(companyWithoutEmployees)
-
+            LOGGER.log(Level.INFO, "******INITIALIZATION******")
         }
-    }*/
+    }
 }
 
 fun main(args: Array<String>) {

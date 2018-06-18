@@ -16,7 +16,7 @@ data class Dependant (
         @Column(name = "DEPENDANT_ID", updatable = false, nullable = false)
         val dependantId: Long? = null,
 
-        @Column(name = "NAME")
+        @Column(name = "DEPENDANT_NAME")
         val dependantName: String = "",
 
         @Column(name = "PHONE_NUMBER")
@@ -34,14 +34,14 @@ data class Dependant (
         val relation: Relation,
 
         @ManyToOne
-        @JoinColumn(name = "employee", referencedColumnName = "EMPLOYEE_ID", updatable = false)
+        @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID", updatable = false)
         @JsonManagedReference
         val employee: Employee
 
 ) {
 
         override fun toString(): String {
-                return "Dependant(dependantId=$dependantId, employeeName='$dependantName', dateOfBirth=$dateOfBirth, relation=$relation , parent=${employee?.employeeId})"
+                return "Dependant(dependantId=$dependantId, dependantName='$dependantName',gender= $gender, dateOfBirth=$dateOfBirth, relation=$relation , parent=${employee?.employeeId})"
 
         }
 
