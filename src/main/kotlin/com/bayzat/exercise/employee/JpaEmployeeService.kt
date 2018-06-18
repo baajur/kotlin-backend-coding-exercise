@@ -8,8 +8,8 @@ import javax.transaction.Transactional
 class JpaEmployeeService(val employeeRepo: EmployeeRepository) : EmployeeService {
 
     override fun retrieveEmployee(employeeId: Long): EmployeeDto? {
-        return employeeRepo.findById(employeeId).map { existingCompany ->
-            existingCompany.toDto()
+        return employeeRepo.findById(employeeId).map { existingEmployee ->
+            existingEmployee.toDto()
         }.orElse(null)
     }
 
@@ -27,10 +27,9 @@ class JpaEmployeeService(val employeeRepo: EmployeeRepository) : EmployeeService
         }.orElse(null)
     }
 
-
-    override fun deleteEmployee(companyId: Long): Long? {
-        return employeeRepo.findById(companyId).map { currentEmployee ->
-            employeeRepo.deleteByEmployeeId(companyId)
+    override fun deleteEmployee(employeeId: Long): Long? {
+        return employeeRepo.findById(employeeId).map { currentEmployee ->
+            employeeRepo.deleteByEmployeeId(employeeId)
         }.orElse(null)
     }
 }

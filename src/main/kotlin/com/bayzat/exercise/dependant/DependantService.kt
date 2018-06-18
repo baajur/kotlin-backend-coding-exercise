@@ -8,7 +8,7 @@ interface DependantService {
     fun addDependant(dependant: CreateDependantDto): DependantDto
 
     /**
-     * Only existing employee will be updated, if the employee does'not exist
+     * Only existing dependant will be updated. if the employee does'not exist
      * then don't update and return null ?
      * @param dependantId will be used to find whether employee exist or not
      * @param UpdateEmployeeDto it's the data the client sent and needs updating

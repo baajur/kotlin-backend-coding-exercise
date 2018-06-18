@@ -1,11 +1,11 @@
 package com.bayzat.exercise.employee
 
 interface EmployeeService {
-    fun retrieveEmployee(companyId: Long): EmployeeDto?
+    fun retrieveEmployee(employeeId: Long): EmployeeDto?
 
     fun retrieveEmployees(): List<EmployeeDto>
 
-    fun addEmployee(company: CreateEmployeeDto): EmployeeDto
+    fun addEmployee(employee: CreateEmployeeDto): EmployeeDto
 
     /**
      * Only existing employee will be updated, if the employee does'not exist
@@ -14,7 +14,7 @@ interface EmployeeService {
      * @param UpdateEmployeeDto it's the data the client sent and needs updating
      * @return updated Employee data Only existing employee will be updated and return
      */
-    fun updateEmployee(employeeId: Long, company: UpdateEmployeeDto): EmployeeDto?
+    fun updateEmployee(employeeId: Long, employee: UpdateEmployeeDto): EmployeeDto?
 
     fun deleteEmployee(employeeId: Long): Long?
 }
