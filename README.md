@@ -12,8 +12,7 @@
 
 <ol type="1">
   <li>
-       I wasn't able test the API documentation on localhost using Dredd
-     I was able to install Dredd successfully, however I was not able to see the reqeust and response sent to the server, please see this      <a href="dredd.PNG">link</a>.
+       Dredd Issue: I fixed the issue now Dredd is working on my local host machine and I'm able to test API Blue Print Documentations        
   </li>
   </li>
 </ol>
