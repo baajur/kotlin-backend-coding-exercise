@@ -3,7 +3,7 @@
 **Pending tasks** 
 <ol type="1">
   <li>
-        @WebMvcTest: Need to finish testing the Company and Dependant controllers ,it will be copy and paste from the employee controller which was finished
+        @WebMvcTest: Need to finish testing the Company and Dependant controllers ,it will be copy and paste from the employee controller which I have finished
   </li>
  </ol>
 
