@@ -20,7 +20,7 @@ import java.util.logging.Logger
 class BayzatExerciseApplication {
 
     private val LOGGER = Logger.getLogger(BayzatExerciseApplication::class.qualifiedName)
-
+/*
     @Bean
     open fun init(companyRepository: CompanyRepository): CommandLineRunner {
         return CommandLineRunner {
@@ -54,7 +54,7 @@ class BayzatExerciseApplication {
             companyRepository.save(companyWithoutEmployees)
 
         }
-    }
+    }*/
 }
 
 fun main(args: Array<String>) {
