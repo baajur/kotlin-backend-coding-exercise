@@ -14,7 +14,7 @@ import javax.persistence.*
 data class Company(
 
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "COMPANY_ID", updatable = false, nullable = false)
         val companyId: Long? = null,
 

@@ -12,7 +12,7 @@ import javax.persistence.*
 data class Employee(
 
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "EMPLOYEE_ID", updatable = false, nullable = false)
         val employeeId: Long? = null,
 

@@ -2,6 +2,7 @@ package com.bayzat.exercise.dependant
 
 import com.bayzat.exercise.constant.DEPENDANTS_PATH
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
@@ -9,7 +10,10 @@ import java.util.logging.Level
 import java.util.logging.Logger
 
 @RestController
-@RequestMapping(value = DEPENDANTS_PATH)
+@RequestMapping(value = DEPENDANTS_PATH,
+        produces = arrayOf(
+                MediaType.APPLICATION_JSON_VALUE))
+
 class DependantController(val dependantService: DependantService) {
 
     private val log = Logger.getLogger(DependantController::class.java.getName())
@@ -48,7 +52,7 @@ class DependantController(val dependantService: DependantService) {
     }
 
     @PutMapping("{dependantId}")
-    fun updateDependant(@PathVariable("dependantId") dependantId: Long, @RequestBody dependant: UpdateDependantDto): ResponseEntity<DependantDto>  {
+    fun updateDependant(@PathVariable("dependantId") dependantId: Long, @RequestBody dependant: UpdateDependantDto): ResponseEntity<DependantDto> {
         log.log(Level.INFO, "Request to update dependant: {}", dependantId)
 
         val result = dependantService.updateDependant(dependantId, dependant)
@@ -61,11 +65,10 @@ class DependantController(val dependantService: DependantService) {
 
     @DeleteMapping("{dependantId}")
     fun deleteDependantById(@PathVariable(value = "dependantId") dependantId: Long): ResponseEntity<Void> {
-        val result= dependantService.deleteDependant(dependantId)
-        if ( result != null) {
+        val result = dependantService.deleteDependant(dependantId)
+        if (result != null) {
             return ResponseEntity<Void>(HttpStatus.OK)
-        }
-       else
+        } else
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build()
     }
 

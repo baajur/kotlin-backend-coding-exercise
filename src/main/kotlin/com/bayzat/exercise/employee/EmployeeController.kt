@@ -2,6 +2,7 @@ package com.bayzat.exercise.employee
 
 import com.bayzat.exercise.constant.EMPLOYEES_PATH
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
@@ -9,7 +10,10 @@ import java.util.logging.Level
 import java.util.logging.Logger
 
 @RestController
-@RequestMapping(value = EMPLOYEES_PATH)
+@RequestMapping(value = EMPLOYEES_PATH,
+        produces = arrayOf(
+                MediaType.APPLICATION_JSON_VALUE))
+
 class EmployeeController(val employeeService: EmployeeService) {
 
     private val log = Logger.getLogger(EmployeeController::class.java.getName())

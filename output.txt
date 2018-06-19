@@ -1,0 +1,858 @@
+[34minfo[39m: Configuration './dredd.yml' found, ignoring other arguments.
+[34minfo[39m: Beginning Dredd testing...
+[31mfail[39m: GET (200) /api/v1/companies duration: 141ms
+[31mfail[39m: POST (201) /api/v1/companies duration: 98ms
+[31mfail[39m: PUT (200) /api/v1/companies duration: 95ms
+[31mfail[39m: DELETE (200) /api/v1/companies duration: 44ms
+[31mfail[39m: GET (200) /api/v1/companies/1 duration: 68ms
+[31mfail[39m: GET (200) /api/v1/employees duration: 108ms
+[31mfail[39m: GET (200) /api/v1/employees/1 duration: 59ms
+[31mfail[39m: PUT (200) /api/v1/employees/1 duration: 82ms
+[31mfail[39m: DELETE (200) /api/v1/employees/1 duration: 45ms
+[31mfail[39m: POST (201) /api/v1/employees/1 duration: 130ms
+[31mfail[39m: POST (200) /api/v1/dependants duration: 95ms
+[31mfail[39m: PUT (200) /api/v1/dependants duration: 37ms
+[31mfail[39m: DELETE (200) /api/v1/dependants duration: 32ms
+[31mfail[39m: GET (200) /api/v1/dependants duration: 56ms
+[31mfail[39m: GET (200) /api/v1/dependants/1 duration: 66ms
+[34minfo[39m: Displaying failed tests...
+[31mfail[39m: GET (200) /api/v1/companies duration: 141ms
+[31mfail[39m: headers: Header 'content-type' has value 'application/json;charset=UTF-8' instead of 'application/json'
+body: Can't validate. Expected body Content-Type is application/json but body is not a parseable JSON: Parse error on line 24:
+...          }        ]    },    {     
+----------------------^
+Expecting '}', ',', got ']'
+
+[32mrequest[39m: 
+method: GET
+uri: /api/v1/companies
+headers: 
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 0
+
+body: 
+
+
+
+[31mexpected[39m: 
+headers: 
+    Content-Type: application/json
+
+body: 
+[
+    {
+        "companyId":1,
+        "companyName":"Bayzat",
+        "address":{
+            "city":"Dubai",
+            "country":"UAE"
+        },
+        "employees": [ 
+            {
+                "employeeId":2,
+                "employeeName":"John",
+                "phoneNumber":"+971555960195",
+                "gender":"MALE",
+                "dateOfBirth":"1990-06-06",
+                "salary":1500.0,
+                "company": {
+                    "companyId":1,
+                    "companyName":"Bayzat",
+                    "address": {
+                        "city":"Dubai",
+                        "country":"UAE"
+                }
+            }
+        ]
+    },
+    {
+        "companyId":3,
+        "companyName":"Bayzat",
+        "address": {
+        "city":"Dubai",
+        "country":"UAE"
+    }
+]
+
+statusCode: 200
+
+
+[31mactual[39m: 
+statusCode: 200
+headers: 
+    content-type: application/json;charset=UTF-8
+    transfer-encoding: chunked
+    date: Mon, 18 Jun 2018 13:24:50 GMT
+    connection: close
+
+body: 
+[
+  {
+    "companyId": 1,
+    "companyName": "Bayzat",
+    "address": {
+      "city": "Dubai",
+      "country": "UAE"
+    }
+  }
+]
+
+
+
+[31mfail[39m: POST (201) /api/v1/companies duration: 98ms
+[31mfail[39m: headers: Header 'content-type' has value 'application/json;charset=UTF-8' instead of 'application/json'
+
+[32mrequest[39m: 
+method: POST
+uri: /api/v1/companies
+headers: 
+    Content-Type: application/json
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 102
+
+body: 
+{
+  "companyName": "Bayzat",
+  "address": {
+    "city": "Dubai",
+    "country": "UAE"
+  }
+}
+
+
+[31mexpected[39m: 
+headers: 
+    Content-Type: application/json
+    Location: http://localhost:8080/api/v1/companies/4
+
+body: 
+{
+  "companyId": 4,
+  "companyName": "Bayzat",
+  "address": {
+    "city": "Dubai",
+    "country": "UAE"
+  }
+}
+statusCode: 201
+
+
+[31mactual[39m: 
+statusCode: 201
+headers: 
+    location: http://localhost:8080/api/v1/companies/2
+    content-type: application/json;charset=UTF-8
+    transfer-encoding: chunked
+    date: Mon, 18 Jun 2018 13:24:50 GMT
+    connection: close
+
+body: 
+{
+  "companyId": 2,
+  "companyName": "Bayzat",
+  "address": {
+    "city": "Dubai",
+    "country": "UAE"
+  }
+}
+
+
+
+[31mfail[39m: PUT (200) /api/v1/companies duration: 95ms
+[31mfail[39m: body: At '/companyId' Missing required property: companyId
+body: At '/companyName' Missing required property: companyName
+body: At '/address' Missing required property: address
+statusCode: Status code is not '200'
+
+[32mrequest[39m: 
+method: PUT
+uri: /api/v1/companies
+headers: 
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 0
+
+body: 
+
+
+
+[31mexpected[39m: 
+headers: 
+
+body: 
+{
+  "companyId": 4,
+  "companyName": "Bayzat_Changed",
+  "address": {
+    "city": "London",
+    "country": "UK"
+  }
+}
+statusCode: 200
+
+
+[31mactual[39m: 
+statusCode: 405
+headers: 
+    allow: GET, POST
+    content-type: application/json;charset=UTF-8
+    transfer-encoding: chunked
+    date: Mon, 18 Jun 2018 13:24:50 GMT
+    connection: close
+
+body: 
+{
+  "timestamp": "2018-06-18T13:24:50.889+0000",
+  "status": 405,
+  "error": "Method Not Allowed",
+  "message": "Request method 'PUT' not supported",
+  "path": "/api/v1/companies"
+}
+
+
+
+[31mfail[39m: DELETE (200) /api/v1/companies duration: 44ms
+[31mfail[39m: statusCode: Status code is not '200'
+
+[32mrequest[39m: 
+method: DELETE
+uri: /api/v1/companies
+headers: 
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 0
+
+body: 
+
+
+
+[31mexpected[39m: 
+headers: 
+
+statusCode: 200
+
+
+[31mactual[39m: 
+statusCode: 405
+headers: 
+    allow: GET, POST
+    content-type: application/json;charset=UTF-8
+    transfer-encoding: chunked
+    date: Mon, 18 Jun 2018 13:24:50 GMT
+    connection: close
+
+body: 
+{
+  "timestamp": "2018-06-18T13:24:50.973+0000",
+  "status": 405,
+  "error": "Method Not Allowed",
+  "message": "Request method 'DELETE' not supported",
+  "path": "/api/v1/companies"
+}
+
+
+
+[31mfail[39m: GET (200) /api/v1/companies/1 duration: 68ms
+[31mfail[39m: headers: Header 'content-type' has value 'application/json;charset=UTF-8' instead of 'application/json'
+body: Can't validate. Expected body Content-Type is application/json but body is not a parseable JSON: Parse error on line 7:
+...state":"UAE"    },}
+---------------------^
+Expecting 'STRING', got '}'
+
+[32mrequest[39m: 
+method: GET
+uri: /api/v1/companies/1
+headers: 
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 0
+
+body: 
+
+
+
+[31mexpected[39m: 
+headers: 
+    Content-Type: application/json
+
+body: 
+{
+    "companyId":1,
+    "companyName":"Bayzat",
+    "address":{
+        "city":"Dubai",
+        "state":"UAE"
+    },
+}
+
+statusCode: 200
+
+
+[31mactual[39m: 
+statusCode: 200
+headers: 
+    content-type: application/json;charset=UTF-8
+    transfer-encoding: chunked
+    date: Mon, 18 Jun 2018 13:24:50 GMT
+    connection: close
+
+body: 
+{
+  "companyId": 1,
+  "companyName": "Bayzat",
+  "address": {
+    "city": "Dubai",
+    "country": "UAE"
+  }
+}
+
+
+
+[31mfail[39m: GET (200) /api/v1/employees duration: 108ms
+[31mfail[39m: headers: Header 'content-type' has value 'application/json;charset=UTF-8' instead of 'application/json'
+
+[32mrequest[39m: 
+method: GET
+uri: /api/v1/employees
+headers: 
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 0
+
+body: 
+
+
+
+[31mexpected[39m: 
+headers: 
+    Content-Type: application/json
+
+body: 
+[
+  {
+    "employeeId": 2,
+    "employeeName": "John",
+    "phoneNumber": "+971555960195",
+    "gender": "MALE",
+    "dateOfBirth": "1990-06-06",
+    "salary": 1500,
+    "company": {
+      "companyId": 1,
+      "companyName": "Bayzat",
+      "address": {
+        "city": "Dubai",
+        "country": "UAE"
+      }
+    }
+  }
+]
+statusCode: 200
+
+
+[31mactual[39m: 
+statusCode: 200
+headers: 
+    content-type: application/json;charset=UTF-8
+    transfer-encoding: chunked
+    date: Mon, 18 Jun 2018 13:24:50 GMT
+    connection: close
+
+body: 
+[]
+
+
+
+[31mfail[39m: GET (200) /api/v1/employees/1 duration: 59ms
+[31mfail[39m: headers: Header 'content-type' is missing
+body: Can't validate real media type 'text/plain' against expected media type 'application/json'.
+statusCode: Status code is not '200'
+
+[32mrequest[39m: 
+method: GET
+uri: /api/v1/employees/1
+headers: 
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 0
+
+body: 
+
+
+
+[31mexpected[39m: 
+headers: 
+    Content-Type: application/json
+
+body: 
+{
+  "employeeId": 2,
+  "employeeName": "John",
+  "phoneNumber": "+971555960195",
+  "gender": "MALE",
+  "dateOfBirth": "1990-06-06",
+  "salary": 1500,
+  "company": {
+    "companyId": 1,
+    "companyName": "Bayzat",
+    "address": {
+      "city": "Dubai",
+      "country": "UAE"
+    }
+  }
+}
+statusCode: 200
+
+
+[31mactual[39m: 
+statusCode: 404
+headers: 
+    content-length: 0
+    date: Mon, 18 Jun 2018 13:24:50 GMT
+    connection: close
+
+body: 
+
+
+
+
+[31mfail[39m: PUT (200) /api/v1/employees/1 duration: 82ms
+[31mfail[39m: body: At '/employeeId' Missing required property: employeeId
+body: At '/employeeName' Missing required property: employeeName
+body: At '/phoneNumber' Missing required property: phoneNumber
+body: At '/gender' Missing required property: gender
+body: At '/dateOfBirth' Missing required property: dateOfBirth
+body: At '/salary' Missing required property: salary
+body: At '/company' Missing required property: company
+statusCode: Status code is not '200'
+
+[32mrequest[39m: 
+method: PUT
+uri: /api/v1/employees/1
+headers: 
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 0
+
+body: 
+
+
+
+[31mexpected[39m: 
+headers: 
+
+body: 
+{
+  "employeeId": 2,
+  "employeeName": "John_Changed",
+  "phoneNumber": "+971555960000",
+  "gender": "MALE",
+  "dateOfBirth": "1980-06-06",
+  "salary": 1800,
+  "company": {
+    "companyId": 1,
+    "companyName": "Bayzat",
+    "address": {
+      "city": "Dubai",
+      "country": "UAE"
+    }
+  }
+}
+statusCode: 200
+
+
+[31mactual[39m: 
+statusCode: 400
+headers: 
+    content-type: application/json;charset=UTF-8
+    transfer-encoding: chunked
+    date: Mon, 18 Jun 2018 13:24:50 GMT
+    connection: close
+
+body: 
+{
+  "timestamp": "2018-06-18T13:24:51.266+0000",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Required request body is missing: public org.springframework.http.ResponseEntity<com.bayzat.exercise.employee.EmployeeDto> com.bayzat.exercise.employee.EmployeeController.updateEmployee(long,com.bayzat.exercise.employee.UpdateEmployeeDto)",
+  "path": "/api/v1/employees/1"
+}
+
+
+
+[31mfail[39m: DELETE (200) /api/v1/employees/1 duration: 45ms
+[31mfail[39m: statusCode: Status code is not '200'
+
+[32mrequest[39m: 
+method: DELETE
+uri: /api/v1/employees/1
+headers: 
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 0
+
+body: 
+
+
+
+[31mexpected[39m: 
+headers: 
+
+statusCode: 200
+
+
+[31mactual[39m: 
+statusCode: 404
+headers: 
+    content-length: 0
+    date: Mon, 18 Jun 2018 13:24:50 GMT
+    connection: close
+
+
+
+
+[31mfail[39m: POST (201) /api/v1/employees/1 duration: 130ms
+[31mfail[39m: headers: Header 'location' is missing
+headers: Header 'content-type' has value 'application/json;charset=UTF-8' instead of 'application/json'
+body: At '/employeeId' Missing required property: employeeId
+body: At '/employeeName' Missing required property: employeeName
+body: At '/phoneNumber' Missing required property: phoneNumber
+body: At '/gender' Missing required property: gender
+body: At '/dateOfBirth' Missing required property: dateOfBirth
+body: At '/salary' Missing required property: salary
+body: At '/company' Missing required property: company
+statusCode: Status code is not '201'
+
+[32mrequest[39m: 
+method: POST
+uri: /api/v1/employees/1
+headers: 
+    Content-Type: application/json
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 358
+
+body: 
+{
+  "employeeName": "Kamal",
+  "phoneNumber": "+97111",
+  "gender": "MALE",
+  "dateOfBirth": "1990-01-14",
+  "salary": 1500,
+  "company": {
+    "companyId": 1,
+    "companyName": "Bayzat",
+    "address": {
+      "city": "Dubai",
+      "country": "UAE"
+    }
+  }
+}
+
+
+[31mexpected[39m: 
+headers: 
+    Content-Type: application/json
+    Location: http://localhost:8080/api/v1/employees/5
+
+body: 
+{
+  "employeeId": 5,
+  "employeeName": "Kamal",
+  "phoneNumber": "+97111",
+  "gender": "MALE",
+  "dateOfBirth": "1990-01-14",
+  "salary": 1500,
+  "company": {
+    "companyId": 1,
+    "companyName": "Bayzat",
+    "address": {
+      "city": "Dubai",
+      "country": "UAE"
+    }
+  }
+}
+statusCode: 201
+
+
+[31mactual[39m: 
+statusCode: 405
+headers: 
+    allow: PUT, GET, DELETE
+    content-type: application/json;charset=UTF-8
+    transfer-encoding: chunked
+    date: Mon, 18 Jun 2018 13:24:50 GMT
+    connection: close
+
+body: 
+{
+  "timestamp": "2018-06-18T13:24:51.402+0000",
+  "status": 405,
+  "error": "Method Not Allowed",
+  "message": "Request method 'POST' not supported",
+  "path": "/api/v1/employees/1"
+}
+
+
+
+[31mfail[39m: POST (200) /api/v1/dependants duration: 95ms
+[31mfail[39m: headers: Header 'location' is missing
+headers: Header 'content-type' has value 'application/json;charset=UTF-8' instead of 'application/json'
+statusCode: Status code is not '200'
+
+[32mrequest[39m: 
+method: POST
+uri: /api/v1/dependants
+headers: 
+    Content-Type: application/json
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 557
+
+body: 
+{
+      "dependantName": "John_Changed",
+      "phoneNumber": "+971555960195",
+      "gender": "MALE",
+      "dateOfBirth": "1990-06-06",
+      "relation": "FATHER",
+      "employee": {
+        "employeeId": 2,
+        "employeeName": "John",
+        "phoneNumber": "+971555960195",
+        "gender": "MALE",
+        "dateOfBirth": "1990-06-06",
+        "salary": 1500,
+        "company": {
+          "companyId": 1,
+          "companyName": "Bayzat",
+          "address": {
+            "city": "Dubai",
+            "country": "UAE"
+          }
+        }
+}
+
+
+
+[31mexpected[39m: 
+headers: 
+    Content-Type: application/json
+    Location: http://localhost:8080/api/v1/dependants/5
+
+statusCode: 200
+
+
+[31mactual[39m: 
+statusCode: 400
+headers: 
+    content-type: application/json;charset=UTF-8
+    transfer-encoding: chunked
+    date: Mon, 18 Jun 2018 13:24:50 GMT
+    connection: close
+
+body: 
+{
+  "timestamp": "2018-06-18T13:24:51.569+0000",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "JSON parse error: Unexpected end-of-input: expected close marker for Object (start marker at [Source: (PushbackInputStream); line: 1, column: 1]); nested exception is com.fasterxml.jackson.core.io.JsonEOFException: Unexpected end-of-input: expected close marker for Object (start marker at [Source: (PushbackInputStream); line: 1, column: 1])\n at [Source: (PushbackInputStream); line: 23, column: 558]",
+  "path": "/api/v1/dependants"
+}
+
+
+
+[31mfail[39m: PUT (200) /api/v1/dependants duration: 37ms
+[31mfail[39m: statusCode: Status code is not '200'
+
+[32mrequest[39m: 
+method: PUT
+uri: /api/v1/dependants
+headers: 
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 0
+
+body: 
+
+
+
+[31mexpected[39m: 
+headers: 
+
+statusCode: 200
+
+
+[31mactual[39m: 
+statusCode: 405
+headers: 
+    allow: GET, POST
+    content-type: application/json;charset=UTF-8
+    transfer-encoding: chunked
+    date: Mon, 18 Jun 2018 13:24:50 GMT
+    connection: close
+
+body: 
+{
+  "timestamp": "2018-06-18T13:24:51.633+0000",
+  "status": 405,
+  "error": "Method Not Allowed",
+  "message": "Request method 'PUT' not supported",
+  "path": "/api/v1/dependants"
+}
+
+
+
+[31mfail[39m: DELETE (200) /api/v1/dependants duration: 32ms
+[31mfail[39m: statusCode: Status code is not '200'
+
+[32mrequest[39m: 
+method: DELETE
+uri: /api/v1/dependants
+headers: 
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 0
+
+body: 
+
+
+
+[31mexpected[39m: 
+headers: 
+
+statusCode: 200
+
+
+[31mactual[39m: 
+statusCode: 405
+headers: 
+    allow: GET, POST
+    content-type: application/json;charset=UTF-8
+    transfer-encoding: chunked
+    date: Mon, 18 Jun 2018 13:24:51 GMT
+    connection: close
+
+body: 
+{
+  "timestamp": "2018-06-18T13:24:51.668+0000",
+  "status": 405,
+  "error": "Method Not Allowed",
+  "message": "Request method 'DELETE' not supported",
+  "path": "/api/v1/dependants"
+}
+
+
+
+[31mfail[39m: GET (200) /api/v1/dependants duration: 56ms
+[31mfail[39m: headers: Header 'content-type' has value 'application/json;charset=UTF-8' instead of 'application/json'
+
+[32mrequest[39m: 
+method: GET
+uri: /api/v1/dependants
+headers: 
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 0
+
+body: 
+
+
+
+[31mexpected[39m: 
+headers: 
+    Content-Type: application/json
+
+body: 
+[
+  {
+    "dependantId": 3,
+    "dependantName": "John",
+    "phoneNumber": "+971555960195",
+    "gender": "MALE",
+    "dateOfBirth": "1990-06-06",
+    "relation": "FATHER",
+    "employee": {
+      "employeeId": 2,
+      "employeeName": "John",
+      "phoneNumber": "+971555960195",
+      "gender": "MALE",
+      "dateOfBirth": "1990-06-06",
+      "salary": 1500,
+      "company": {
+        "companyId": 1,
+        "companyName": "Bayzat",
+        "address": {
+          "city": "Dubai",
+          "country": "UAE"
+        }
+      }
+    }
+  }
+]
+statusCode: 200
+
+
+[31mactual[39m: 
+statusCode: 200
+headers: 
+    content-type: application/json;charset=UTF-8
+    transfer-encoding: chunked
+    date: Mon, 18 Jun 2018 13:24:51 GMT
+    connection: close
+
+body: 
+[]
+
+
+
+[31mfail[39m: GET (200) /api/v1/dependants/1 duration: 66ms
+[31mfail[39m: headers: Header 'content-type' is missing
+body: Can't validate real media type 'text/plain' against expected media type 'application/json'.
+statusCode: Status code is not '200'
+
+[32mrequest[39m: 
+method: GET
+uri: /api/v1/dependants/1
+headers: 
+    User-Agent: Dredd/5.1.9 (Windows_NT 10.0.17134; x64)
+    Content-Length: 0
+
+body: 
+
+
+
+[31mexpected[39m: 
+headers: 
+    Content-Type: application/json
+
+body: 
+{
+  "dependantId": 3,
+  "dependantName": "John",
+  "phoneNumber": "+971555960195",
+  "gender": "MALE",
+  "dateOfBirth": "1990-06-06",
+  "relation": "FATHER",
+  "employee": {
+    "employeeId": 2,
+    "employeeName": "John",
+    "phoneNumber": "+971555960195",
+    "gender": "MALE",
+    "dateOfBirth": "1990-06-06",
+    "salary": 1500,
+    "company": {
+      "companyId": 1,
+      "companyName": "Bayzat",
+      "address": {
+        "city": "Dubai",
+        "country": "UAE"
+      }
+    }
+  }
+}
+statusCode: 200
+
+
+[31mactual[39m: 
+statusCode: 404
+headers: 
+    content-length: 0
+    date: Mon, 18 Jun 2018 13:24:51 GMT
+    connection: close
+
+body: 
+
+
+
+
+[32mcomplete[39m: 0 passing, 15 failing, 0 errors, 0 skipped, 15 total
+[32mcomplete[39m: Tests took 3352ms
+[32mcomplete[39m: See results in Apiary at: https://app.apiary.io/backendapi7/tests/run/831bfcf2-f9a0-4fac-aee8-cb5d7ac2db6d
