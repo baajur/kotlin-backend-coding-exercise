@@ -17,7 +17,7 @@ Companies can have multiple employees and employees can have multiple dependants
 • Gender<br>
 • Date of birth<br>
 • Relation to employee</p>
-# Notes<br>
+# Notes <br>
 • Use Symfony Framework (PHP) or Spring Boot (any jvm language).<br>
 • Expose a REST API, no frontend is required.<br>
 • Usage of kotlin will be considered a plus.<br>
