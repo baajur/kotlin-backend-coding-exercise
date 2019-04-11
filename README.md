@@ -4,25 +4,25 @@ Welcome! In this excercise, you are asked to develop a simple RESTful service.<b
 The service will provide functionality to create, read, update and delete certain entities, namely: Company, Employee, Dependant.<br>
 Companies can have multiple employees and employees can have multiple dependants. Furthermore, they have the specific attributes:</p>
 
-**Company**
+**Company**<br>
 • Name<br>
 • Address</p>
 
-**Employee**
+**Employee** <br>
 • Name<br>
 • Phone number<br>
 • Gender<br>
 • Date of birth<br>
 • Salary</p>
 
-**Dependant**
+**Dependant** <br>
 • Name<br>
 • Phone number<br>
 • Gender<br>
 • Date of birth<br>
 • Relation to employee</p>
 
-**Notes**
+**Notes**<br>
 • Use Symfony Framework (PHP) or Spring Boot (any jvm language).<br>
 • Expose a REST API, no frontend is required.<br>
 • Usage of kotlin will be considered a plus.<br>
