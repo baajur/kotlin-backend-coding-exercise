@@ -1,24 +1,28 @@
-<p>Bayzat Backend Coding Excercise<br>
+**Bayzat Backend Coding Excercise**
   
 Welcome! In this excercise, you are asked to develop a simple RESTful service.<br>
 The service will provide functionality to create, read, update and delete certain entities, namely: Company, Employee, Dependant.<br>
 Companies can have multiple employees and employees can have multiple dependants. Furthermore, they have the specific attributes:</p>
-<p>Company<br>
+
+**Company**
 • Name<br>
 • Address</p>
-<p>Employee<br>
+
+**Employee**
 • Name<br>
 • Phone number<br>
 • Gender<br>
 • Date of birth<br>
 • Salary</p>
-<p>Dependant<br>
+
+**Dependant**
 • Name<br>
 • Phone number<br>
 • Gender<br>
 • Date of birth<br>
 • Relation to employee</p>
-<p>Notes<br>
+
+**Notes**
 • Use Symfony Framework (PHP) or Spring Boot (any jvm language).<br>
 • Expose a REST API, no frontend is required.<br>
 • Usage of kotlin will be considered a plus.<br>
